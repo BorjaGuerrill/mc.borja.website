@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Minecraft Server Status</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: #eee;
+      text-align: center;
+      padding: 50px;
+    }
+    .status {
+      font-size: 1.5em;
+      margin-top: 20px;
+    }
+    .online {
+      color: #4CAF50;
+    }
+    .offline {
+      color: #F44336;
+    }
+  </style>
+</head>
+<body>
+  <h1>Minecraft Server Status</h1>
+  <div id="serverStatus" class="status">Checking status...</div>
+
+  <script>
+    // Define the server
+    const host = "0.tcp.sa.ngrok.io";
+    const port = 16580;
+    const url = `https://api.mcsrvstat.us/2/${host}:${port}`;
+
+    // Fetch server status
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        const statusEl = document.getElementById('serverStatus');
+        if (data.online) {
+          statusEl.innerHTML = `✅ Server is <span class="online">Online</span><br>
+                                🧍 Players: ${data.players.online}/${data.players.max}`;
+        } else {
+          statusEl.innerHTML = `❌ Server is <span class="offline">Offline</span>`;
+        }
+      })
+      .catch(err => {
+        document.getElementById('serverStatus').innerHTML = `⚠️ Error checking status`;
+        console.error(err);
+      });
+  </script>
+</body>
+</html>
