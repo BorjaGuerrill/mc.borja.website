@@ -21,10 +21,13 @@
     .offline {
       color: #F44336;
     }
+    p{
+      text-align:center;
+    }
   </style>
 </head>
 <body>
-  <h1>Minecraft Server Status</h1>
+  <h1>Status servidor de generacion</h1>
   <div id="serverStatus" class="status">Checking status...</div>
 
   <script>
@@ -39,16 +42,18 @@
       .then(data => {
         const statusEl = document.getElementById('serverStatus');
         if (data.online) {
-          statusEl.innerHTML = `✅ Server is <span class="online">Online</span><br>
-                                🧍 Players: ${data.players.online}/${data.players.max}`;
+          statusEl.innerHTML = `✅ El servidor esta <span class="online">Online</span><br>
+                                🧍 Numero de jugadores: ${data.players.online}/${data.players.max}`;
         } else {
-          statusEl.innerHTML = `❌ Server is <span class="offline">Offline</span>`;
+          statusEl.innerHTML = `❌ El servidor esta <span class="offline">Offline</span>`;
         }
       })
       .catch(err => {
-        document.getElementById('serverStatus').innerHTML = `⚠️ Error checking status`;
+        document.getElementById('serverStatus').innerHTML = `⚠️ Error revisando status`;
         console.error(err);
       });
   </script>
+  <p>IP: 0.tcp.sa.ngrok.io:16580</p>
+  <p>SOLO JAVA</p>
 </body>
 </html>
